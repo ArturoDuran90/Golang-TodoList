@@ -47,10 +47,6 @@
   min-height: 420px;
 }
 
-.tasks-cont > div {
-  /* border: 1px solid black; */
-}
-
 .tasks-cont {
   display: flex;
   flex-direction: row;
