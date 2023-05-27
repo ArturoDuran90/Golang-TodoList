@@ -1,0 +1,27 @@
+#create-list-cont{
+  background-color: lightblue;
+}
+
+#view-list-cont{
+  background-color: lightgreen;
+}
+
+#create-list-cont, #view-list-cont{
+  margin: 10px;
+  padding: 10px;
+  width: 550px;
+  height: 550px;
+  font-size: 50px;
+  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  border: 1px solid white;
+}
+
+#create-list-cont:hover, #view-list-cont:hover {
+  cursor: pointer;
+  border: 5px solid white;
+}
