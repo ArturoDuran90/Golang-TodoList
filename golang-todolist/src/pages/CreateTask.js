@@ -18,6 +18,7 @@ function CreateTask(){
 
   const createList = () => {
     setClicked(false);
+    
   };
 
   return(
