@@ -1,6 +1,6 @@
 import './general.css';
 import './viewTask.css';
-import { React, useState } from 'react';
+import { React, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function ViewTask(){
@@ -13,6 +13,21 @@ function ViewTask(){
     let path = `/`;
     navigate(path);
   };
+
+  const [task, setTask] = useState();
+
+    useEffect(() => {
+        getData();
+    }, []);
+
+    const getData = () => {
+        var url = `http://localhost:1111/todolist`
+        fetch(url)
+        .then(r => r.json(0))
+        .then(data => {
+            setTask(data);
+        }).catch(e => console.log(e));
+    }
 
   const createList = () => {
 
@@ -50,8 +65,12 @@ function ViewTask(){
               <div id='icons'>
                 <span id='taskOnList'>
                   <div className='tasks-cont' onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
-                    <div className='task-name'>Create a different task for another computer today</div>
-                    {isHovering && 
+                    {task?.map(tasks => (
+                      <div className='task-name'>
+                      {tasks.task}
+                      </div>
+                    ))}
+                    {isHovering &&  
                       <>
                         {/* <div className='iconImage' title='Confirm'>&#10004;</div> */}
                         <div className='iconImage' title='Delete' onClick={deleteTask}>&#10006;</div>

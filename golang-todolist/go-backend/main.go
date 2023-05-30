@@ -54,6 +54,7 @@ func main() {
 	app.GET("/", func(ctx echo.Context) error {
 		return ctx.JSON(http.StatusOK, TaskResponse{Message: "Welcome to my API. Try our routes"})
 	})
+	
 	app.POST("/todolist/create", createTask)
 	app.GET("/todolist/:id", getTask)
 	app.GET("/todolist", getAllTasks)
