@@ -3,25 +3,52 @@ import './createTask.css';
 import { React, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function CreateTask(){
-  const [clicled, setClicked] = useState(true);
-
+function CreateTask() {
   const refreshPage = () => {
-    window.location.href='/';
+    window.location.href = '/';
   }
 
   let navigate = useNavigate();
+  const [clicked, setClicked] = useState(true);
+  const [taskInput, setTaskInput] = useState("");
+
   const goHome = () => {
     let path = `/`;
     navigate(path);
   };
 
   const createList = () => {
-    setClicked(false);
-    
+    if (taskInput.trim() === "") {
+      return;
+    }
+  
+    const newTask = {
+      id: Math.floor(Math.random() * 1000),
+      todo: taskInput
+    };
+  
+    fetch("http://localhost:1111/todolist/create", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newTask)
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log("New task added:", data);
+        setClicked(false);
+      })
+      .catch(error => {
+        console.log("Error creating task:", error);
+      });
+  };
+  
+  const handleInputChange = (event) => {
+    setTaskInput(event.target.value);
   };
 
-  return(
+  return (
     <>
       <div id="homepg-cont">
         <header onClick={refreshPage}>Task Tracker</header>
@@ -29,9 +56,9 @@ function CreateTask(){
           <span id='create-cont'>
             <div id='create-tasks-cont'>
               <p>Type your task below:</p>
-              <input type='text' maxLength="50"/>
+              <input type='text' maxLength="50" value={taskInput} onChange={handleInputChange} />
               {
-                clicled? <button id='add-task-btn' onClick={createList}>Add task</button> :<p></p>
+                clicked ? <button id='add-task-btn' onClick={createList}>Add task</button> : <p></p>
               }
             </div>
           </span>
@@ -43,4 +70,5 @@ function CreateTask(){
     </>
   );
 }
+
 export default CreateTask;

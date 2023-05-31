@@ -47,7 +47,7 @@
   min-height: 420px;
 }
 
-.tasks-cont {
+.tasks-cont, .tasks-cont-null {
   display: flex;
   flex-direction: row;
   padding: 5px 5px 10px 5px;
@@ -84,4 +84,8 @@
 
 #create-list-Title{
   text-decoration: underline;
+}
+
+#update-task-input{
+  height: fit-content;
 }

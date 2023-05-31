@@ -12,8 +12,8 @@ import (
 var collection *mongo.Collection
 
 type Task struct {
-	ID       int    `json:"id"`
-	Todo     string `json:"todo"`
+	ID   int    `json:"id"`
+	Todo string `json:"todo"`
 }
 
 func SetCollection(c *mongo.Collection) {
@@ -45,7 +45,6 @@ func GetAllTasks() ([]Task, error) {
 }
 
 func CreateTask(task *Task) error {
-	// Check if the task already exists
 	existingTask, err := GetTask(task.ID)
 	if err == nil && existingTask != nil {
 		return fmt.Errorf("Task with ID %d already exists", task.ID)
@@ -64,7 +63,7 @@ func GetTask(taskID int) (*Task, error) {
 	err := collection.FindOne(context.Background(), bson.M{"id": taskID}).Decode(&task)
 	if err != nil {
 		if errors.Is(err, mongo.ErrNoDocuments) {
-			return nil, nil // Task not found
+			return nil, nil
 		}
 		return nil, err
 	}
@@ -79,7 +78,7 @@ func UpdateTask(taskID int, updatedTask *Task) error {
 	return nil
 }
 
-func DelteTask(taskID int) error {
+func DeleteTask(taskID int) error {
 	_, err := collection.DeleteOne(context.Background(), bson.M{"id": taskID})
 	if err != nil {
 		return err
