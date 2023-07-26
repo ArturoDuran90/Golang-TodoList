@@ -5,7 +5,6 @@ import (
 	"log"
 	"net/http"
 	"strconv"
-	"mongoURI.go"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -18,7 +17,7 @@ import (
 var (
 	port       = ":1111"
 	collection *mongo.Collection
-	uri        = mongoURI.mongoUri
+	uri        = dal.MongoUri
 	idCounter  = 0
 )
 
